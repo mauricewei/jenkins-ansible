@@ -1,0 +1,84 @@
+---
+project_compose:
+  - name: specforge
+    url: git@xx.xx.xx.xx:devops/specforge.git
+  - name: miner
+    url: git@xx.xx.xx.xx:openstack_r_group/miner.git
+  - name: networking-generic-switch
+    url: git@xx.xx.xx.xx:openstack_r_group/networking-generic-switch.git
+  - name: cinder
+    url: git@xx.xx.xx.xx:openstack_r_group/cinder.git
+  - name: glance
+    url: git@xx.xx.xx.xx:openstack_r_group/glance.git
+  - name: ironic
+    url: git@xx.xx.xx.xx:openstack_r_group/ironic.git
+  - name: ironic-inspector
+    url: git@xx.xx.xx.xx:openstack_r_group/ironic-inspector.git
+  - name: ironic-python-agent
+    url: git@xx.xx.xx.xx:openstack_r_group/ironic-python-agent.git
+  - name: neutron
+    url: git@xx.xx.xx.xx:openstack_r_group/neutron.git
+  - name: nova
+    url: git@xx.xx.xx.xx:openstack_r_group/nova.git
+  - name: openstacksdk
+    url: git@xx.xx.xx.xx:openstack_r_group/openstacksdk.git
+  - name: python-cinderclient
+    url: git@xx.xx.xx.xx:openstack_r_group/python-cinderclient.git
+  - name: python-glanceclient
+    url: git@xx.xx.xx.xx:openstack_r_group/python-glanceclient.git
+  - name: python-ironicclient
+    url: git@xx.xx.xx.xx:openstack_r_group/python-ironicclient.git
+  - name: python-neutronclient
+    url: git@xx.xx.xx.xx:openstack_r_group/python-neutronclient.git
+  - name: python-novaclient
+    url: git@xx.xx.xx.xx:openstack_r_group/python-novaclient.git
+  - name: python-openstackclient
+    url: git@xx.xx.xx.xx:openstack_r_group/python-openstackclient.git
+  - name: neutron-lib
+    url: git@xx.xx.xx.xx:openstack_r_group/neutron-lib.git
+  - name: neutron-lbaasv2
+    url: git@xx.xx.xx.xx:openstack_r_group/neutron-lbaasv2.git
+  - name: osc-placement
+    url: git@xx.xx.xx.xx:openstack_r_group/osc-placement.git
+  - name: trove
+    url: git@xx.xx.xx.xx:openstack_r_group/trove.git
+  - name: python-troveclient
+    url: git@xx.xx.xx.xx:openstack_r_group/python-troveclient.git
+  - name: glance_store
+    url: git@xx.xx.xx.xx:openstack_r_group/glance_store.git
+  - name: oslo.utils
+    url: git@xx.xx.xx.xx:openstack_r_group/oslo.utils.git
+  - name: netmiko
+    url: git@xx.xx.xx.xx:openstack_r_group/netmiko.git
+  - name: sunshine-ansible
+    url: git@xx.xx.xx.xx:devops/sunshine-ansible.git
+  - name: consul
+    url: git@xx.xx.xx.xx:openstack_r_group/consul.git
+  - name: blackswan
+    url: git@xx.xx.xx.xx:openstack_r_group/blackswan.git
+  - name: designate
+    url: git@xx.xx.xx.xx:openstack_r_group/designate.git
+  - name: os-traits
+    url: git@xx.xx.xx.xx:openstack_r_group/os-traits.git
+  - name: python-designateclient
+    url: git@xx.xx.xx.xx:openstack_r_group/python-designateclient.git
+  - name: octavia
+    url: git@xx.xx.xx.xx:openstack_r_group/octavia.git
+  - name: tempest
+    url: git@xx.xx.xx.xx:openstack_r_group/tempest.git
+  - name: kolla
+    url: git@xx.xx.xx.xx:devops/kolla.git
+  - name: kolla-ansible
+    url: git@xx.xx.xx.xx:devops/kolla-ansible.git
+  - name: barbican
+    url: git@xx.xx.xx.xx:openstack_r_group/barbican.git
+  - name: neutron-fwaas
+    url: git@xx.xx.xx.xx:sdn/openstack-terra-drivers/fwaas-terra.git
+  - name: networking-terra
+    url: git@xx.xx.xx.xx:sdn/openstack-terra-drivers/networking-terra.git
+  - name: kubeos-ansible
+    url: git@xx.xx.xx.xx:devops/kubeos-ansible.git
+  - name: networking-vpp
+    url: git@xx.xx.xx.xx:nfv/openstack-plugins/networking-vpp.git
+  - name: vpp-statistics
+    url: git@xx.xx.xx.xx:nfv/openstack-plugins/vpp_statistics.git

@@ -1,0 +1,72 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>PROJECTBRANCH</name>
+          <description>请选择打包项目的分支！！</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>develop</string>
+              {% for r in all_os_branchs.results  %}
+                {% if r['item']['name'] == item.name %}
+                  {% for b in r['stdout_lines']%}
+                    <string>{{ b }}</string>
+                  {% endfor %}
+                {% endif %}
+              {% endfor %} 
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>SPECBRANCH</name>
+          <description>请选择打包 spec 文件所在 specforge 的分支，如果您不确定选何项，那就别选！！！</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>develop</string>
+              {% for branch in specforge_branchs.stdout_lines %}
+              <string>{{ branch }}</string>
+              {% endfor %}
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>STRATEGY</name>
+          <description>tag: 基于tag打包
+commit: 基于commit id打包</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>commit</string>
+              <string>tag</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>TAG</name>
+          <description>如果 STRATEGY 您选择了 tag 选项，那么请在这里输入 tag id ！否则请不用输入！！！</description>
+          <defaultValue></defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>master</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>if [ &quot;commit&quot; = &quot;${STRATEGY}&quot; ]; then /opt/packforge/packforge  -B &quot;${SPECBRANCH}&quot; -b &quot;${PROJECTBRANCH}&quot; -s commit build {{ item.name }}; else /opt/packforge/packforge  -B &quot;${SPECBRANCH}&quot; -b &quot;${PROJECTBRANCH}&quot; -s tag  -t &quot;${TAG}&quot; build {{ item.name }}; fi</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>

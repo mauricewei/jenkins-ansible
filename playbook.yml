@@ -1,0 +1,67 @@
+---
+# Author: weimeng <weim6@chinaunicon.cn>
+- hosts: localhost
+  gather_facts: false
+  vars:
+    jenkins_ansible_workdir: /opt/jenkins-ansible-workdir
+    jenkins_address: xx.xx.xx.xx
+  vars_files:
+    - vars/project_compose.yml
+
+  tasks:
+  - name: ensure jenkins-ansible work dir exist
+    file:
+      path: "{{ jenkins_ansible_workdir }}"
+      state: directory
+
+  - name: ensure all projects dir exist
+    file:
+      path: "{{ jenkins_ansible_workdir }}/{{ item.name }}"
+      state: directory
+    with_items: "{{ project_compose }}"
+
+  - name: Git clone all projects
+    git:
+      repo: "{{ item.url }}"
+      dest: "{{ jenkins_ansible_workdir }}/{{ item.name }}"
+    with_items: "{{ project_compose }}"
+
+  - name: Registry all projects branchs
+    shell: |
+      pushd  {{ jenkins_ansible_workdir }}/{{ item.name }} > /dev/null
+        git branch -r | grep -vE 'stable|HEAD|develop$'|awk -F'/' '{print $2}'
+      popd > /dev/null
+    register: all_os_branchs
+    with_items: "{{ project_compose }}"
+
+  - name: Registry specforge branchs
+    shell: |
+      pushd  {{ jenkins_ansible_workdir }}/specforge > /dev/null
+        git branch -r | grep -vE 'master|develop'|awk -F'/' '{print $2}'
+      popd > /dev/null
+    register: specforge_branchs
+
+  - name: Ensure jenkins package is installed
+    package:
+      name: jenkins
+      state: present
+
+  - name: Ensure jinkins job project directory exis
+    file:
+      path: "/var/lib/jenkins/jobs/{{ item.name }}"
+      state: directory
+    loop: "{{ project_compose }}"
+    notify:
+      - Reload jenkins jobs
+
+  - name: Copy over jenkins jobs configuration
+    template:
+      src: templates/config.xml.j2
+      dest: "/var/lib/jenkins/jobs/{{ item.name }}/config.xml"
+    loop: "{{ project_compose }}"
+    notify:
+      - Reload jenkins jobs
+
+  handlers:
+    - name: Reload jenkins jobs
+      command: "sudo java -jar /opt/jenkins-ansible/jenkins-cli.jar -s http://{{ jenkins_address }}:8080/ -auth admin:wocloud@jenkins reload-configuration"
